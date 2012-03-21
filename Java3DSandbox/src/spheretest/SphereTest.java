@@ -21,7 +21,8 @@ public class SphereTest {
 	private DirectionalLight light;
 
 	/**
-	 * @param args
+	 * @author Daniel
+	 * Testing some spherecreating with light effects, resize window if just grey box
 	 */
 	public static void main(String[] args) {
 
@@ -42,6 +43,9 @@ public class SphereTest {
 		groups.addChild(light);
 		
 		addLights();
+		
+		uni.getViewingPlatform().setNominalViewingTransform();
+		uni.addBranchGraph(groups);
 	}
 
 	public Appearance createAppearance() {
@@ -67,9 +71,6 @@ public class SphereTest {
     	AmbientLight ambientLightNode = new AmbientLight (lightColor);
     	ambientLightNode.setInfluencingBounds (bounds);
     	groups.addChild (ambientLightNode);
-		
-		uni.getViewingPlatform().setNominalViewingTransform();
-		uni.addBranchGraph(groups);
 		
 	}
 
