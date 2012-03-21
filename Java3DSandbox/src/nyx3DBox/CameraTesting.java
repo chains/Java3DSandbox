@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import com.sun.j3d.utils.geometry.ColorCube;
+import com.sun.j3d.utils.geometry.Cone;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.universe.ViewingPlatform;
@@ -61,8 +62,8 @@ public class CameraTesting{
         	
             SimpleUniverse univ = new SimpleUniverse(canvas);
             BranchGroup group = new BranchGroup();
-            Sphere sphere = new Sphere(0.5f);
-            group.addChild(sphere);
+            ColorCube cube = new ColorCube(0.5f);
+            group.addChild(cube);
             Color3f light = new Color3f(1.8f, 0.1f, 0.1f);
             BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0), 100.0);
             
@@ -74,7 +75,9 @@ public class CameraTesting{
             ViewingPlatform vp = univ.getViewingPlatform();
 
             univ.addBranchGraph(group);
-            canvas.addKeyListener(new Camera(vp));
+            Camera cam = new Camera(vp);
+            canvas.addKeyListener(cam);
+            canvas.addMouseMotionListener(cam);
             frame.add(canvas);
            // frame.addKeyListener(this);
             frame.pack();

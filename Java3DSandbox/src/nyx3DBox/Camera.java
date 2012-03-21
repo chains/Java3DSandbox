@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
@@ -12,12 +14,14 @@ import javax.vecmath.Vector3f;
 
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
-public class Camera implements KeyListener, ActionListener {
+public class Camera implements KeyListener, ActionListener, MouseMotionListener {
 
 	
 	
 	private Transform3D view_tf3d;
 	private TransformGroup view_tg;
+	private int mouseY = 0;
+	private int mouseX = 0;
 	
 	public Camera(ViewingPlatform vp){
         view_tg = vp.getMultiTransformGroup().getTransformGroup(0);
@@ -60,7 +64,7 @@ public class Camera implements KeyListener, ActionListener {
     	if(e.getKeyChar() == 'w'){
     		System.out.println("Bai");
     		Transform3D dirTransf = new Transform3D();
-    		dirTransf.setTranslation(new Vector3d(0.0d, 0.05d, 0.0d));
+    		dirTransf.setTranslation(new Vector3d(0.0d, 0.0d, -0.05d));
     		//controlVec.setX((float)(controlVec.getX() - 0.05));
             view_tg.getTransform(view_tf3d);
             view_tf3d.mul(dirTransf);
@@ -69,7 +73,7 @@ public class Camera implements KeyListener, ActionListener {
     	if(e.getKeyChar() == 's'){
     		System.out.println("Bai");
     		Transform3D dirTransf = new Transform3D();
-    		dirTransf.setTranslation(new Vector3d(0.0d, -0.05d, 0.0d));
+    		dirTransf.setTranslation(new Vector3d(0.0d, 0.0d, 0.05d));
     		//controlVec.setX((float)(controlVec.getX() - 0.05));
             view_tg.getTransform(view_tf3d);
             view_tf3d.mul(dirTransf);
@@ -124,6 +128,62 @@ public class Camera implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("Hai");
+		
+	}
+
+
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		System.out.println("Hai");
+		if(e.getY() < mouseY){
+            view_tg.getTransform(view_tf3d);
+            //view_tf3d.setTranslation(new Vector3f(0,0,0));
+            Transform3D rotTransf = new Transform3D();
+            rotTransf.rotX(-0.01);
+            view_tf3d.mul(rotTransf);
+            //view_tf3d.setTranslation(controlVec);
+            view_tg.setTransform(view_tf3d); 
+		}
+		if(e.getY() > mouseY){
+            view_tg.getTransform(view_tf3d);
+            //view_tf3d.setTranslation(new Vector3f(0,0,0));
+            Transform3D rotTransf = new Transform3D();
+            rotTransf.rotX(0.01);
+            view_tf3d.mul(rotTransf);
+            //view_tf3d.setTranslation(controlVec);
+            view_tg.setTransform(view_tf3d); 
+		}
+		if(e.getX() > mouseX){
+            view_tg.getTransform(view_tf3d);
+            //view_tf3d.setTranslation(new Vector3f(0,0,0));
+            Transform3D rotTransf = new Transform3D();
+            rotTransf.rotY(0.01);
+            view_tf3d.mul(rotTransf);
+            //view_tf3d.setTranslation(controlVec);
+            view_tg.setTransform(view_tf3d); 
+		}
+		if(e.getX() < mouseX){
+            view_tg.getTransform(view_tf3d);
+            //view_tf3d.setTranslation(new Vector3f(0,0,0));
+            Transform3D rotTransf = new Transform3D();
+            rotTransf.rotY(-0.01);
+            view_tf3d.mul(rotTransf);
+            //view_tf3d.setTranslation(controlVec);
+            view_tg.setTransform(view_tf3d); 
+		}
+		mouseX = e.getX();
+		mouseY = e.getY();
+		
+	}
+
+
+
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		System.out.println("Hai");
 		
 	}
