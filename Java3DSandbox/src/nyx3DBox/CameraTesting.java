@@ -75,9 +75,15 @@ public class CameraTesting{
             ViewingPlatform vp = univ.getViewingPlatform();
 
             univ.addBranchGraph(group);
+            
+            OrbitAboutVWOrigin originCam = new OrbitAboutVWOrigin(vp);
+            
             Camera cam = new Camera(vp);
             canvas.addKeyListener(cam);
             canvas.addMouseMotionListener(cam);
+
+//            canvas.addMouseMotionListener(originCam);
+            
             frame.add(canvas);
            // frame.addKeyListener(this);
             frame.pack();
