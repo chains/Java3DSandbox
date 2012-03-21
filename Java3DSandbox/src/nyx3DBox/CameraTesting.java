@@ -24,6 +24,7 @@ import javax.media.j3d.TransformGroup;
 import javax.swing.JFrame;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
+import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
 /**
@@ -40,7 +41,7 @@ public class CameraTesting{
 
     	private Transform3D view_tf3d;
     	private TransformGroup view_tg;
-    	Vector3f controlVec = new Vector3f(0.0f, -1.0f, 5.0f);
+    	Vector3d controlVec = new Vector3d(0.0f, -1.0f, 5.0f);
     	
         public Hello3d() {
         	JFrame frame = new JFrame();
@@ -92,64 +93,76 @@ public class CameraTesting{
         	Vector3f tempVec;
         	if(e.getKeyChar() == 'd'){
         		System.out.println("Bai");
-        		controlVec.setX((float)(controlVec.getX() + 0.05));
+        		Transform3D dirTransf = new Transform3D();
+        		dirTransf.setTranslation(new Vector3d(0.05d, 0.0d, 0.0d));
+        		//controlVec.setX((float)(controlVec.getX() + 0.05));
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(controlVec);
+                view_tf3d.mul(dirTransf);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 'a'){
         		System.out.println("Bai");
-        		controlVec.setX((float)(controlVec.getX() - 0.05));
+        		Transform3D dirTransf = new Transform3D();
+        		dirTransf.setTranslation(new Vector3d(-0.05d, 0.0d, 0.0d));
+        		//controlVec.setX((float)(controlVec.getX() - 0.05));
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(controlVec);
+                view_tf3d.mul(dirTransf);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 'w'){
         		System.out.println("Bai");
-        		controlVec.setY((float)(controlVec.getY() + 0.05));
+        		Transform3D dirTransf = new Transform3D();
+        		dirTransf.setTranslation(new Vector3d(0.0d, 0.05d, 0.0d));
+        		//controlVec.setX((float)(controlVec.getX() - 0.05));
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(controlVec);
+                view_tf3d.mul(dirTransf);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 's'){
         		System.out.println("Bai");
-        		controlVec.setY((float)(controlVec.getY() - 0.05));
+        		Transform3D dirTransf = new Transform3D();
+        		dirTransf.setTranslation(new Vector3d(0.0d, -0.05d, 0.0d));
+        		//controlVec.setX((float)(controlVec.getX() - 0.05));
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(controlVec);
+                view_tf3d.mul(dirTransf);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 'q'){
         		System.out.println("Bai");
-        		controlVec.setZ((float)(controlVec.getZ() + 0.05));
+        		Transform3D dirTransf = new Transform3D();
+        		dirTransf.setTranslation(new Vector3d(0.0d, 0.0d, 0.05d));
+        		//controlVec.setX((float)(controlVec.getX() - 0.05));
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(controlVec);
+                view_tf3d.mul(dirTransf);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 'e'){
         		System.out.println("Bai");
-        		controlVec.setZ((float)(controlVec.getZ() - 0.05));
+        		Transform3D dirTransf = new Transform3D();
+        		dirTransf.setTranslation(new Vector3d(0.0d, 0.0d, -0.05d));
+        		//controlVec.setX((float)(controlVec.getX() - 0.05));
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(controlVec);
+                view_tf3d.mul(dirTransf);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 'z'){
         		System.out.println("Bai");
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(new Vector3f(0,0,0));
+                //view_tf3d.setTranslation(new Vector3f(0,0,0));
                 Transform3D rotTransf = new Transform3D();
                 rotTransf.rotY(0.1);
                 view_tf3d.mul(rotTransf);
-                view_tf3d.setTranslation(controlVec);
+                //view_tf3d.setTranslation(controlVec);
                 view_tg.setTransform(view_tf3d); 
         	}
         	if(e.getKeyChar() == 'x'){
         		System.out.println("Bai");
                 view_tg.getTransform(view_tf3d);
-                view_tf3d.setTranslation(new Vector3f(0,0,0));
+                //view_tf3d.setTranslation(new Vector3f(0,0,0));
                 Transform3D rotTransf = new Transform3D();
-                rotTransf.rotY(0.1);
+                rotTransf.rotY(-0.1);
                 view_tf3d.mul(rotTransf);
-                view_tf3d.setTranslation(controlVec);
+                //view_tf3d.setTranslation(controlVec);
                 view_tg.setTransform(view_tf3d); 
         	}
 			
