@@ -184,9 +184,9 @@ public class ClimbDude extends java.applet.Applet  {
     }
     
         
-    public void destroy() {
-	u.removeAllLocales();
-    }
+//    public void destroy() {
+//	u.removeAllLocales();
+//    }
 
     public static void main(String[] args) 
     {
