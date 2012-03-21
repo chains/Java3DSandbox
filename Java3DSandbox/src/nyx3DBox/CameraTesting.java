@@ -80,9 +80,9 @@ public class CameraTesting{
             
             Camera cam = new Camera(vp);
             canvas.addKeyListener(cam);
-            canvas.addMouseMotionListener(cam);
+//            canvas.addMouseMotionListener(cam);
 
-//            canvas.addMouseMotionListener(originCam);
+            canvas.addMouseMotionListener(originCam);
             
             frame.add(canvas);
            // frame.addKeyListener(this);
