@@ -1,5 +1,10 @@
 package johan.sphere;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
 import javax.media.j3d.Alpha;
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.BoundingSphere;
@@ -9,7 +14,9 @@ import javax.media.j3d.PointLight;
 import javax.media.j3d.RotationInterpolator;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point3f;
@@ -30,6 +37,11 @@ public class Spheres {
 	
 	SimpleUniverse universe;
 	BranchGroup group;
+	Color3f light1Color;
+	Color3f lightColor;
+	JButton btn;
+	AmbientLight ambientlight;
+	PointLight pointlight;
 
 	/**
 	 * @param args
@@ -46,12 +58,21 @@ public class Spheres {
 
 	private void run() {
 		JFrame frame = new JFrame("Johan's Spheres");
+		
+		frame.getContentPane();
+
 		frame.setBounds(0, 0, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Canvas3D canvas = new Canvas3D(SimpleUniverse.getPreferredConfiguration());
 		canvas.setBounds(0, 0, 500, 500);
-		frame.add(canvas);
+		
+		BorderLayout border = new BorderLayout();
+		JPanel panel = new JPanel(border);
+		panel.add(btn = new JButton("Randomize colors"), BorderLayout.NORTH);
+		panel.add(canvas, BorderLayout.SOUTH);
+		frame.add(panel);
+		panel.add(canvas);
 		
 		universe = new SimpleUniverse(canvas);
 		group = new BranchGroup();
@@ -83,9 +104,40 @@ public class Spheres {
 //		universe.getViewingPlatform().setNominalViewingTransform();
 		moveCamera();
 		
+        //Add action listener to button
+        btn.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            	randomColors();   
+            }
+        });   
+		
 		frame.pack();
 		frame.setVisible(true);
 		
+		while(true){
+			randomColors();
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void randomColors(){
+    	Random rnd = new Random();
+    	float a = rnd.nextFloat();
+    	float b = rnd.nextFloat();
+    	float c = rnd.nextFloat();
+        Color3f lightColor1 = new Color3f(a,b,c);
+        Color3f lightColor2 = new Color3f(b,c,a);
+        
+        ambientlight.setColor(lightColor1);
+        pointlight.setColor(lightColor2);
 	}
 	 
 	public void moveCamera(){
@@ -148,23 +200,24 @@ public class Spheres {
 	
 	public void addPointLight(){
 		//Creates light that shines 100 units from its origin
-		Color3f light1Color = new Color3f(1.8f, 0.1f, 0.1f);
+		light1Color = new Color3f(1.8f, 0.1f, 0.1f);
 		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1000.0);
 		
-		PointLight light1 = new PointLight(light1Color, new Point3f(5.0f, -5f, 2.0f), new Point3f(0.1f, 0.0f, 0.0f));
-		light1.setEnable(true);
-		
-		light1.setInfluencingBounds(bounds);
-		group.addChild(light1);
+		pointlight = new PointLight(light1Color, new Point3f(5.0f, -5f, 2.0f), new Point3f(0.1f, 0.0f, 0.0f));
+		pointlight.setEnable(true);
+		pointlight.setCapability(PointLight.ALLOW_COLOR_WRITE);
+		pointlight.setInfluencingBounds(bounds);
+		group.addChild(pointlight);
 	}
 	
 	public void addAmbientLight(){
-		Color3f lightColor = new Color3f(1.0f, 0.5f, 1.0f);
+		lightColor = new Color3f(1.0f, 0.5f, 1.0f);
 		BoundingSphere bounds = new BoundingSphere(new Point3d(0.0,0.0,0.0), 1000.0);
 		
-		AmbientLight light = new AmbientLight(true, lightColor); 
-		light.setInfluencingBounds(bounds);
-		group.addChild(light);
+		ambientlight = new AmbientLight(true, lightColor); 
+		ambientlight.setInfluencingBounds(bounds);
+		ambientlight.setCapability(AmbientLight.ALLOW_COLOR_WRITE);
+		group.addChild(ambientlight);
 	}
 
 }
