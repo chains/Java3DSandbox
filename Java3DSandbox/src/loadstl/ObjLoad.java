@@ -48,6 +48,7 @@ import javax.media.j3d.*;
 import loadstl.StlFile;
 
 import javax.vecmath.*;
+
 import java.io.*;
 import com.sun.j3d.utils.behaviors.vp.*;
 
@@ -69,7 +70,7 @@ public class ObjLoad extends Applet {
         // appear in the scene.
         TransformGroup objScale = new TransformGroup();
         Transform3D t3d = new Transform3D();
-        t3d.setScale(0.2);
+        t3d.setScale(0.5);
         objScale.setTransform(t3d);
         objRoot.addChild(objScale);
 
@@ -128,15 +129,19 @@ public class ObjLoad extends Applet {
 	  rotator.setSchedulingBounds(bounds);
 	  objTrans.addChild(rotator);
 	}
+        
+        
 
         // Set up the background
         Color3f bgColor = new Color3f(0.05f, 0.05f, 0.5f);
         Background bgNode = new Background(bgColor);
         bgNode.setApplicationBounds(bounds);
         objRoot.addChild(bgNode);
+        
+
 
         // Set up the ambient light
-        Color3f ambientColor = new Color3f(0.1f, 0.1f, 0.1f);
+        Color3f ambientColor = new Color3f(0.1f, 0.5f, 0.1f);
         AmbientLight ambientLightNode = new AmbientLight(ambientColor);
         ambientLightNode.setInfluencingBounds(bounds);
         objRoot.addChild(ambientLightNode);
@@ -159,6 +164,17 @@ public class ObjLoad extends Applet {
 
 	return objRoot;
     }
+    
+	public Appearance createAppearance() {
+		Appearance app = new Appearance();
+		app.setCapability(Appearance.ALLOW_MATERIAL_WRITE);
+		Material mat = new Material();
+		mat.setCapability(Material.ALLOW_COMPONENT_WRITE);
+		mat.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+		mat.setSpecularColor(new Color3f(1.0f, 0.0f, 0.0f));
+		app.setMaterial(mat);
+		return app;
+	}
 
     private void usage()
     {

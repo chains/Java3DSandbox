@@ -42,9 +42,10 @@ public class stltest {
 		
 		//universe = new SimpleUniverse(canvas);
 		
-		String[] args = {"-s","porsche.stl"};
+		String[] args = {"-t","-n","porsche.stl"};
 		
-		ObjLoad obj = new ObjLoad(args);
+		//ObjLoad obj = new ObjLoad(args);
+		ObjLoad.main(args);
 		
 //		group = new BranchGroup();
 		

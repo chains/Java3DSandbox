@@ -21,10 +21,13 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 
+import javax.vecmath.Color3f;
 import javax.vecmath.Point3f;
 import javax.vecmath.Vector3f;
 
+import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
 
 // New from JDK 1.4 for endian related problems
@@ -752,13 +755,27 @@ public class StlFile implements Loader
 
     // Put geometry into Shape3d
     Shape3D shape = new Shape3D();
+    
+    
     shape.setGeometry(gi.getGeometryArray());
+    shape.setAppearance(createAppearance());
 
     group.addChild(shape);
     scene.addNamedObject(objectName, shape);
 
     return scene;
   } // end of makeScene
+  
+	public Appearance createAppearance() {
+		Appearance app = new Appearance();
+		app.setCapability(Appearance.ALLOW_MATERIAL_WRITE);
+		Material mat = new Material();
+		mat.setCapability(Material.ALLOW_COMPONENT_WRITE);
+		mat.setDiffuseColor(new Color3f(1.0f, 0.0f, 0.0f));
+		mat.setSpecularColor(new Color3f(1.0f, 0.0f, 0.0f));
+		app.setMaterial(mat);
+		return app;
+	}
 
   /////////////////////// Accessors and Modifiers ///////////////////////////
 
