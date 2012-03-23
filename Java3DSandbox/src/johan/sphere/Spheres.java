@@ -14,6 +14,7 @@ import javax.media.j3d.PointLight;
 import javax.media.j3d.RotationInterpolator;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.media.j3d.View;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -99,6 +100,10 @@ public class Spheres {
 		//Lighting
 		addPointLight();
 		addAmbientLight();
+		
+		
+		View view = canvas.getView();
+		view.setBackClipDistance(1000);
 		
 		universe.addBranchGraph(group);
 //		universe.getViewingPlatform().setNominalViewingTransform();
